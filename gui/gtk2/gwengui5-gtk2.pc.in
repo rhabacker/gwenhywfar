@@ -1,4 +1,4 @@
-# pkg-config configuration for gwengui_qt5
+# pkg-config configuration for gwengui5_gtk2
 # For information about the syntax, see pkg-config(1)
 
 # General installation directories
@@ -13,11 +13,11 @@ bindir=@bindir@
 sysconfdir=@sysconfdir@
 
 # Human-readable name
-Name: gwengui-qt5
+Name: gwengui5-gtk2
 # Human-readable description
-Description: QT5 Implementation of the GWEN_DIALOG framework.
+Description: GTK2 Implementation of the GWEN_DIALOG framework.
 
 Version: @VERSION@
-Libs: -L@libdir@ -lgwengui-qt5 -lgwengui-cpp
+Libs: -L@libdir@ -lgwengui5-gtk2
 Cflags: -I@includedir@
 

@@ -117,7 +117,7 @@ AC_SUBST(GWENHYWFAR_SO_REVISION)
 AC_SUBST(GWENHYWFAR_SO_AGE)
 AC_SUBST(GWENHYWFAR_SO_EFFECTIVE)
 
-AM_INIT_AUTOMAKE(gwenhywfar, $GWENHYWFAR_VERSION_RELEASE_STRING)
+AM_INIT_AUTOMAKE(gwenhywfar5, $GWENHYWFAR_VERSION_RELEASE_STRING)
 
 
 
@@ -409,7 +409,7 @@ gwenhywfar_headerdir_am="\$(includedir)/gwenhywfar5"
 gwenhywfar_headerdir="\${includedir}/gwenhywfar5"
 gwenhywfar_plugindir="\${libdir}/gwenhywfar/plugins/${GWENHYWFAR_SO_EFFECTIVE}"
 gwenhywfar_symlinkdir="\$(top_builddir)/gwenhywfar5"
-gwenhywfar_datadir="\${datadir}/gwenhywfar"
+gwenhywfar_datadir="\${datadir}/gwenhywfar5"
 gwenhywfar_sysdatadir="\${datadir}"
 
 # Now the specific settings
@@ -1375,12 +1375,12 @@ AC_CONFIG_FILES([Doxyfile
                  admin/Makefile
                  m4/Makefile
                  po/Makefile
-                 gwenhywfar-config.in
-                 gwenhywfar.pc
-                 gwenhywfar-config.cmake
-                 gwenhywfar-config-version.cmake
-                 gwenhywfar.spec
-                 gwenhywfar.iss
+                 gwenhywfar5-config.in
+                 gwenhywfar5.pc
+                 gwenhywfar5-config.cmake
+                 gwenhywfar5-config-version.cmake
+                 gwenhywfar5.spec
+                 gwenhywfar5.iss
                  checks/Makefile
                  data/Makefile
                  doc/Makefile
@@ -1447,22 +1447,22 @@ AC_CONFIG_FILES([Doxyfile
                  test/Makefile
                  gui/Makefile
                  gui/cpp/Makefile
-                 gui/cpp/gwengui-cpp-config.cmake
-                 gui/cpp/gwengui-cpp-config-version.cmake
+                 gui/cpp/gwengui5-cpp-config.cmake
+                 gui/cpp/gwengui5-cpp-config-version.cmake
                  gui/qt4/Makefile
-                 gui/qt4/gwengui-qt4.pc
-                 gui/qt4/gwengui-qt4-config.cmake
-                 gui/qt4/gwengui-qt4-config-version.cmake
+                 gui/qt4/gwengui5-qt4.pc
+                 gui/qt4/gwengui5-qt4-config.cmake
+                 gui/qt4/gwengui5-qt4-config-version.cmake
                  gui/qt5/Makefile
-                 gui/qt5/gwengui-qt5.pc
-                 gui/qt5/gwengui-qt5-config.cmake
-                 gui/qt5/gwengui-qt5-config-version.cmake
+                 gui/qt5/gwengui5-qt5.pc
+                 gui/qt5/gwengui5-qt5-config.cmake
+                 gui/qt5/gwengui5-qt5-config-version.cmake
                  gui/fox16/Makefile
-                 gui/fox16/gwengui-fox16.pc
+                 gui/fox16/gwengui5-fox16.pc
                  gui/gtk2/Makefile
-                 gui/gtk2/gwengui-gtk2.pc
+                 gui/gtk2/gwengui5-gtk2.pc
                  gui/gtk3/Makefile
-                 gui/gtk3/gwengui-gtk3.pc
+                 gui/gtk3/gwengui5-gtk3.pc
                  gui/cocoa/Makefile
                  gui/testdialogs/Makefile
 		])

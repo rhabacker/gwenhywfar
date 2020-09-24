@@ -16,7 +16,7 @@ DEFS+=-DGWEN_BUFFER_DEFAULT_HARDLIMIT='@gwenhywfar_buffer_hardlimit@'
 noinst_LTLIBRARIES=libbase.la
 
 
-typedatadir=$(datadir)/gwenhywfar/typemaker2/c
+typedatadir=$(datadir)/gwenhywfar5/typemaker2/c
 dist_typedata_DATA=\
   gwen_param.tm2 gwen_param_list.tm2 gwen_param_list2.tm2 gwen_param_tree.tm2
 

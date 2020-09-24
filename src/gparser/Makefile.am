@@ -12,7 +12,7 @@ typefiles=gwen_parser_element.xml
 noinst_LTLIBRARIES=libgparser.la
 
 
-typedatadir=$(datadir)/gwenhywfar/typemaker2/c
+typedatadir=$(datadir)/gwenhywfar5/typemaker2/c
 dist_typedata_DATA=\
   gwen_parser_element.tm2 gwen_parser_element_list.tm2 gwen_parser_element_list2.tm2 gwen_parser_element_tree.tm2
 

@@ -539,7 +539,7 @@ int GWEN_SyncIo_Tls_Prepare(GWEN_SYNCIO *sio)
         DBG_ERROR(GWEN_LOGDOMAIN, "gnutls_certificate_set_x509_key_file: could not get install prefix");
         return GWEN_ERROR_GENERIC;
       }
-      if (strcat_s(defaultPath, sizeof(defaultPath), "\\share\\gwenhywfar")) {
+      if (strcat_s(defaultPath, sizeof(defaultPath), "\\share\\gwenhywfar5")) {
         DBG_ERROR(GWEN_LOGDOMAIN, "gnutls_certificate_set_x509_key_file: no memory on creating search path");
         return GWEN_ERROR_GENERIC;
       }

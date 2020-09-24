@@ -1,6 +1,6 @@
 
 
-typedatadir=$(datadir)/gwenhywfar/typemaker2/c
+typedatadir=$(datadir)/gwenhywfar5/typemaker2/c
 dist_typedata_DATA=\
   char.tm2 \
   char_array.tm2 \

@@ -1,4 +1,4 @@
-# pkg-config configuration for gwengui_fox16
+# pkg-config configuration for gwengui5_qt5
 # For information about the syntax, see pkg-config(1)
 
 # General installation directories
@@ -13,11 +13,11 @@ bindir=@bindir@
 sysconfdir=@sysconfdir@
 
 # Human-readable name
-Name: gwengui-fox16
+Name: gwengui5-qt5
 # Human-readable description
-Description: FOX16 Implementation of the GWEN_DIALOG framework.
+Description: QT5 Implementation of the GWEN_DIALOG framework.
 
 Version: @VERSION@
-Libs: -L@libdir@ -lgwengui-fox16 -lgwengui-cpp
+Libs: -L@libdir@ -lgwengui5-qt5 -lgwengui5-cpp
 Cflags: -I@includedir@
 

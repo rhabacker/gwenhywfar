@@ -16,7 +16,7 @@ EXTRA_DIST = config.rpath  \
 
 bin_SCRIPTS = gwenhywfar-config
 M4dir = $(datadir)/aclocal
-dist_M4_DATA = gwenhywfar.m4
+dist_M4_DATA = gwenhywfar5.m4
 ACLOCAL_AMFLAGS = -I m4
 
 $(gwenhywfar_symlinkdir)/gwenhywfar/version.h: $(top_builddir)/src/version.h
@@ -38,9 +38,9 @@ gwenhywfar-config: gwenhywfar-config.in
 	chmod a+x gwenhywfar-config
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = gwenhywfar.pc
+pkgconfig_DATA = gwenhywfar5.pc
 
-cmakeconfigdir = $(libdir)/cmake/gwenhywfar-@GWENHYWFAR_VERSION_MAJOR@.@GWENHYWFAR_VERSION_MINOR@
+cmakeconfigdir = $(libdir)/cmake/gwenhywfar5-@GWENHYWFAR_VERSION_MAJOR@.@GWENHYWFAR_VERSION_MINOR@
 cmakeconfig_DATA = gwenhywfar-config.cmake gwenhywfar-config-version.cmake
 
 CLEANFILES = gwenhywfar-config $(PACKAGE).tag listdoc.h
