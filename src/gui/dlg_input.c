@@ -251,7 +251,10 @@ void GWEN_DlgInput_Fini(GWEN_DIALOG *dlg)
     s=GWEN_Dialog_GetCharProperty(dlg, "input1", GWEN_DialogProperty_Value, 0, NULL);
     if (s)
       xdlg->response=strdup(s);
-    xdlg->flagAllowStore=GWEN_Dialog_GetIntProperty(dlg, "storePasswordCheck", GWEN_DialogProperty_Value, 0, 0);
+    if (xdlg->flags & 2)
+      xdlg->flagAllowStore=GWEN_Dialog_GetIntProperty(dlg, "storePasswordCheck", GWEN_DialogProperty_Value, 0, 0);
+    else
+      xdlg->flagAllowStore=0;
   }
 
 #if 0
