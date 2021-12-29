@@ -231,6 +231,9 @@ void GWEN_DlgInput_Fini(GWEN_DIALOG *dlg)
 {
   GWEN_DLGINPUT *xdlg;
   GWEN_DB_NODE *dbParams;
+  GWEN_GUI *gui;
+  uint32_t gflags=0;
+  int n=0;
 
   assert(dlg);
   xdlg=GWEN_INHERIT_GETDATA(GWEN_DIALOG, GWEN_DLGINPUT, dlg);
@@ -251,7 +254,23 @@ void GWEN_DlgInput_Fini(GWEN_DIALOG *dlg)
     s=GWEN_Dialog_GetCharProperty(dlg, "input1", GWEN_DialogProperty_Value, 0, NULL);
     if (s)
       xdlg->response=strdup(s);
-    xdlg->flagAllowStore=GWEN_Dialog_GetIntProperty(dlg, "storePasswordCheck", GWEN_DialogProperty_Value, 0, 0);
+
+    /* get GUI flags */
+    gui=GWEN_Gui_GetGui();
+    if (gui)
+      gflags=GWEN_Gui_GetFlags(gui);
+    if (
+      (gflags & GWEN_GUI_FLAGS_PERMPASSWORDS) &&
+      !(xdlg->flags & GWEN_GUI_INPUT_FLAGS_DIRECT) &&
+      !(xdlg->flags & GWEN_GUI_INPUT_FLAGS_TAN) &&
+      !(xdlg->flags & GWEN_GUI_INPUT_FLAGS_DIRECT)
+    )
+      n|=2;
+
+    if (!(n & 2))
+      xdlg->flagAllowStore=0;
+    else
+      xdlg->flagAllowStore=GWEN_Dialog_GetIntProperty(dlg, "storePasswordCheck", GWEN_DialogProperty_Value, 0, 0);
   }
 
 #if 0
