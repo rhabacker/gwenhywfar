@@ -5258,7 +5258,61 @@ int testTresor2(void)
   return 0;
 }
 
+int testSmallTresor(int argc, char **argv)
+{
+  int rv;
+  GWEN_BUFFER *sbuf;
+  GWEN_BUFFER *secbuf;
+  char pw[129];
+  GWEN_GUI *gui;
 
+  fprintf(stderr, "Creating gui.\n");
+  gui=GWEN_Gui_CGui_new();
+  GWEN_Gui_SetGui(gui);
+
+  if (argc<3) {
+    fprintf(stderr, "%s tresor3 <file> (reading password from stdin)\n", argv[0]);
+    return 1;
+  }
+
+  sbuf=GWEN_Buffer_new(0, 256, 0, 1);
+  rv=readFile(argv[2], sbuf);
+  if (rv<0) {
+    fprintf(stderr, "here (%d)", rv);
+    GWEN_Buffer_free(sbuf);
+    return 2;
+  }
+
+  //GWEN_Buffer_Dump(sbuf, 2);
+
+  rv=GWEN_Gui_GetPassword(0, "Testvar1", "Get Password", "Please enter password for given file", pw, 4, sizeof(pw)-1,
+                          GWEN_Gui_PasswordMethod_Text, NULL, 0);
+  if (rv<0) {
+    DBG_ERROR(0, "Error getting password: %d", rv);
+    GWEN_Buffer_free(sbuf);
+    return 2;
+  }
+
+  secbuf=GWEN_Buffer_new(0, 256, 0, 1);
+  rv=GWEN_SmallTresor_Decrypt((const uint8_t *) GWEN_Buffer_GetStart(sbuf),
+                              GWEN_Buffer_GetUsedBytes(sbuf),
+                              pw,
+                              secbuf,
+                              1467, /*AQPAYPAL_PASSWORD_ITERATIONS */
+                              648   /* AQPAYPAL_CRYPT_ITERATIONS */);
+  GWEN_Buffer_free(sbuf);
+  if (rv<0) {
+    fprintf(stderr,
+            "ERROR in testTresor3: Could not decrypt (%d)\n", rv);
+    GWEN_Buffer_free(secbuf);
+    return 2;
+  }
+
+  GWEN_Buffer_Dump(secbuf, 2);
+  GWEN_Buffer_free(secbuf);
+
+  return 0;
+}
 
 int testHashTree(int argc, char **argv)
 {
@@ -6563,6 +6617,7 @@ TEST_FUNC tests[] = {
     { "tlsServer", NULL, testTlsServer },
     { "tresor1", testTresor1, NULL },
     { "tresor2", testTresor2, NULL },
+    { "smalltresor", NULL, testSmallTresor },
     { "url", NULL, testUrl },
     { "xml", NULL, testXML },
     { "xml2", NULL, testXML2 },
