@@ -24,7 +24,7 @@ gct_tool_SOURCES=\
   hashtree.c \
   checktree.c \
   showpasswords.c \
-  main.c
+  main.cpp
 
 gct_tool_LDADD=$(top_builddir)/src/$(gwenhywfar_internal_libname)
 
