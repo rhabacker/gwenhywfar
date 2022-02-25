@@ -17,7 +17,7 @@ gsa_SOURCES=\
   rfi.c \
   sign.c \
   verify.c \
-  main.c
+  main.cpp
 
 gsa_LDADD=$(top_builddir)/src/$(gwenhywfar_internal_libname)
 
