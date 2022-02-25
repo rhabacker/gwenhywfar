@@ -109,7 +109,7 @@ libbase_la_SOURCES=\
  buffer.c \
  debug.c \
  error.c \
- funcs.c \
+ funcs.cpp \
  gwensignal.c \
  i18n.c \
  idlist64.c \

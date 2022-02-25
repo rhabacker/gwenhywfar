@@ -26,49 +26,53 @@
 # include <config.h>
 #endif
 
-
 #include "funcs.h"
 
 #include <stdio.h>
 
-int GWEN_Funcs_Has_Call(const GWEN_FUNCS *func)
+GWEN_Func::GWEN_Func() : _name(NULL), _func1(NULL), _func2(NULL), _func3(NULL), _help(NULL) {}
+GWEN_Func::GWEN_Func(const char *name, GWEN_Func1 func, const char *help) : _name(name), _func1(func), _func2(NULL), _func3(NULL), _help(help) {}
+GWEN_Func::GWEN_Func(const char *name, GWEN_Func2 func, const char *help) : _name(name), _func1(NULL), _func2(func), _func3(NULL), _help(help) {}
+GWEN_Func::GWEN_Func(const char *name, GWEN_Func3 func, const char *help) : _name(name), _func1(NULL), _func2(NULL), _func3(func), _help(help) {}
+
+int GWEN_Func::call() const
 {
-  return func->func1!=NULL;
+  if (!_func1)
+    return -1;
+  return _func1();
 }
 
-int GWEN_Funcs_Has_Call_Args(const GWEN_FUNCS *func)
+int GWEN_Func::call(int argc, char **argv) const
 {
-  return func->func2!=NULL;
+  if (!_func2)
+    return -1;
+  return _func2(argc, argv);
 }
 
-int GWEN_Funcs_Has_Call_DB_NODE_Args(const GWEN_FUNCS *func)
+int GWEN_Func::call(GWEN_DB_NODE *node, int argc, char **argv) const
 {
-  return func->func3!=NULL;
+  if (!_func3)
+    return -1;
+  return _func3(node, argc, argv);
 }
 
-int GWEN_Funcs_Call(const GWEN_FUNCS *func)
+static const GWEN_Func *Funcs::get(const char *name)
 {
-   return func->func1();
-}
-
-int GWEN_Funcs_Call_Args(const GWEN_FUNCS *func, int argc, char **argv)
-{
-  return func->func2(argc, argv);
-}
-
-int GWEN_Funcs_Call_DB_NODE_Args(const GWEN_FUNCS *func, GWEN_DB_NODE *node, int argc, char **argv)
-{
-  return func->func3(node, argc, argv);
+    for(const GWEN_Func *f = _funcs; f->_name; f++) {
+        if (strcmp(f->_name, name) == 0)
+            return f;
+    }
+    return NULL;
 }
 
 /**
  * This function prints out a space separated list of all defined functions
  */
-void GWEN_Funcs_Usage(const GWEN_FUNCS *funcs)
+void GWEN_Func_Usage(const GWEN_Func *Func)
 {
-    const GWEN_FUNCS *p;
+    const GWEN_Func *p;
 
-    for (p=funcs; p->name; p++) {
+    for (p=Func; p->name; p++) {
       fprintf(stderr, " %s", p->name);
       if (p->description)
         fprintf(stderr, " (%s)", p->description);
@@ -79,11 +83,11 @@ void GWEN_Funcs_Usage(const GWEN_FUNCS *funcs)
 /**
  * This function prints out list of all defined functions including the description
  */
-void GWEN_Funcs_Usage_With_Help(const GWEN_FUNCS *funcs)
+void GWEN_Func_Usage_With_Help(const GWEN_Func *Func)
 {
-    const GWEN_FUNCS *p;
+    const GWEN_Func *p;
 
-    for (p=funcs; p->name; p++) {
+    for (p=Func; p->name; p++) {
       fprintf(stderr, "  %s:\n    %s\n\n", p->name, p->description ? p->description : "");
     }
 }
@@ -92,11 +96,11 @@ void GWEN_Funcs_Usage_With_Help(const GWEN_FUNCS *funcs)
  * This function returns a pointer to the function identified by \p name
  * or NULL if function has not been found.
  */
-const GWEN_FUNCS* GWEN_Funcs_Find(const GWEN_FUNCS *funcs, const char *name)
+const GWEN_Func* GWEN_Func_Find(const GWEN_Func *Func, const char *name)
 {
-  const GWEN_FUNCS *p;
+  const GWEN_Func *p;
 
-  for (p=funcs; p->name; p++) {
+  for (p=Func; p->name; p++) {
     if (strcasecmp(name, p->name)==0)
       return p;
   }

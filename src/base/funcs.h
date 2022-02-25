@@ -33,78 +33,64 @@ extern "C" {
 #endif
 
 
+typedef int (*GWEN_Func1)(void);
+typedef int (*GWEN_Func2)(int, char**);
+typedef int (*GWEN_Func3)(GWEN_DB_NODE*, int, char**);
+
 /**
  * This is one of the very few structs inside Gwenhywfar whose
  * contents are available for direct access to the the program.
  * Developer's note: Please note that any change within this struct will
  * make it necessary to increment the SO_VERSION of the library !
  */
-typedef struct {
-  const char *name;
-  int (*func1)(void);
-  int (*func2)(int, char**);
-  int (*func3)(GWEN_DB_NODE*, int, char**);
-  const char *description;
-} GWEN_FUNCS;
+class GWENHYWFAR_API GWEN_Func {
+public:
+  GWEN_Func(const char *name, GWEN_Func1 func, const char *help = NULL);
+  GWEN_Func(const char *name, GWEN_Func2 func, const char *help = NULL);
+  GWEN_Func(const char *name, GWEN_Func3 func, const char *help = NULL);
+  GWEN_Func();
 
-/* Defines a command without parameters but with description  */
-#define GWEN_FUNCS_ENTRY_HELP(a,b,c) { a, b, NULL, NULL, c }
+  int call() const;
+  int call(int argc, char **argv) const;
+  int call(GWEN_DB_Node *node, int argc, char **argv) const;
 
-/* Defines a command with argc/argv parameter and description */
-#define GWEN_FUNNCS_ENTRY_ARGS_HELP(a,b,c) { a, 0, b, NULL, c }
+protected:
+  const char *_name;
+  GWEN_Func1 _func1;
+  GWEN_Func2 _func2;
+  GWEN_Func3 _func3;
+  const char *_help;
+};
 
-/* Defines a command with DB_NODE type and argc/argv parameter and description */
-#define GWEN_FUNCS_ENTRY_DB_NODE_ARGS_HELP(a,b,c) { a, NULL, NULL, b, c }
+class GWENHYWFAR_API GWEN_Funcs {
+public:
+  GWEN_Funcs(const GWEN_Func *funcs);
 
-/* Defines the end of the command table */
-#define GWEN_FUNCS_ENTRY_END() { NULL, NULL, NULL, NULL, NULL }
+  const GWEN_Func *get(const char *name);
 
-/* Defines one of the above commands without description */
-#define GWEN_FUNCS_ENTRY(a,b) { a, b, NULL, NULL, NULL }
-#define GWEN_FUNCS_ENTRY_ARGS(a,b) { a, 0, b, NULL, NULL }
-#define GWEN_FUNCS_ENTRY_DB_NODE_ARGS(a,b) { a, NULL, NULL, b, NULL }
-
-/* Shortcuts */
-#define GWEN_FE_DAH GWEN_FUNCS_ENTRY_DB_NODE_ARGS_HELP
-#define GWEN_FE_DA GWEN_FUNCS_ENTRY_DB_NODE_ARGS
-#define GWEN_FE_D GWEN_FUNCS_ENTRY_DB_NODE
-#define GWEN_FE_END GWEN_FUNCS_ENTRY_END
-
-/* Checks if a command variant exists */
-GWENHYWFAR_API
-int GWEN_Funcs_Has_Call(const GWEN_FUNCS *func);
-GWENHYWFAR_API
-int GWEN_Funcs_Has_Call_Args(const GWEN_FUNCS *func);
-GWENHYWFAR_API
-int GWEN_Funcs_Has_Call_DB_NODE_Args(const GWEN_FUNCS *func);
-
-/* Functions to call a specified command */
-GWENHYWFAR_API
-int GWEN_Funcs_Call(const GWEN_FUNCS *func);
-GWENHYWFAR_API
-int GWEN_Funcs_Call_Args(const GWEN_FUNCS *func, int argc, char **argv);
-GWENHYWFAR_API
-int GWEN_Funcs_Call_DB_NODE_Args(const GWEN_FUNCS *func, GWEN_DB_NODE *node, int argc, char **argv);
+protected:
+  GWEN_Func *_funcs;
+};
 
 /**
  * This function prints out a space separated list of all defined functions
  * without description.
  */
 GWENHYWFAR_API
-void GWEN_Funcs_Usage(const GWEN_FUNCS* funcs);
+void GWEN_Funcs_Usage(const GWEN_Func* funcs);
 
 /**
  * This function outputs a list of all defined functions including the description
  */
 GWENHYWFAR_API
-void GWEN_Funcs_Usage_With_Help(const GWEN_FUNCS* funcs);
+void GWEN_Funcs_Usage_With_Help(const GWEN_Func* funcs);
 
 /**
  * This function returns a pointer to the function described by \p name
  * or NULL if the function was not found.
  */
 GWENHYWFAR_API
-const GWEN_FUNCS* GWEN_Funcs_Find(const GWEN_FUNCS* funcs, const char *name);
+const GWEN_Func* GWEN_Funcs_Find(const GWEN_Func* funcs, const char *name);
 
 #ifdef __cplusplus
 }
