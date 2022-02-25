@@ -37,6 +37,11 @@ typedef int (*GWEN_Func1)(void);
 typedef int (*GWEN_Func2)(int, char**);
 typedef int (*GWEN_Func3)(GWEN_DB_NODE*, int, char**);
 
+#ifdef __cplusplus
+}
+#endif
+
+#ifdef __cplusplus
 /**
  * This is one of the very few structs inside Gwenhywfar whose
  * contents are available for direct access to the the program.
@@ -72,6 +77,8 @@ protected:
   GWEN_Func *_funcs;
 };
 
+#endif
+
 /**
  * This function prints out a space separated list of all defined functions
  * without description.
@@ -91,10 +98,6 @@ void GWEN_Funcs_Usage_With_Help(const GWEN_Func* funcs);
  */
 GWENHYWFAR_API
 const GWEN_Func* GWEN_Funcs_Find(const GWEN_Func* funcs, const char *name);
-
-#ifdef __cplusplus
-}
-#endif
 
 
 #endif /* GWENHYWFAR_Funcs_H */
