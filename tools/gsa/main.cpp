@@ -88,16 +88,16 @@ int main(int argc, char **argv)
     }
   };
   const GWEN_FUNCS funcs[]= {
-    GWEN_FUNCS_ENTRY_DB_NODE_ARGS_HELP("create", createArchive, I18N("This command creates an archive file")),
-    GWEN_FUNCS_ENTRY_DB_NODE_ARGS_HELP("add", add2Archive, I18N("Add files and folders to an archive file")),
-    GWEN_FUNCS_ENTRY_DB_NODE_ARGS_HELP("list", listArchive, I18N("List files and folders in an archive file")),
-    GWEN_FUNCS_ENTRY_DB_NODE_ARGS_HELP("check", checkArchive, I18N("Check integrity of files and folders in an archive file")),
-    GWEN_FUNCS_ENTRY_DB_NODE_ARGS("extract", extractArchive),
-    GWEN_FUNCS_ENTRY_DB_NODE_ARGS("sign", signArchive),
-    GWEN_FUNCS_ENTRY_DB_NODE_ARGS("verify", verifyArchive),
-    GWEN_FUNCS_ENTRY_DB_NODE_ARGS("mkkey", mkArchiveKey),
-    GWEN_FUNCS_ENTRY_DB_NODE_ARGS("rfi", releaseFillIn),
-    GWEN_FUNCS_ENTRY_END(),
+    GWEN_Func("create", createArchive, I18N("This command creates an archive file")),
+    GWEN_Func("add", add2Archive, I18N("Add files and folders to an archive file")),
+    GWEN_Func("list", listArchive, I18N("List files and folders in an archive file")),
+    GWEN_Func("check", checkArchive, I18N("Check integrity of files and folders in an archive file")),
+    GWEN_Func("extract", extractArchive),
+    GWEN_Func("sign", signArchive),
+    GWEN_Func("verify", verifyArchive),
+    GWEN_Func("mkkey", mkArchiveKey),
+    GWEN_Func("rfi", releaseFillIn),
+    GWEN_Funcs(),
   };
   const GWEN_FUNCS *func;
 
@@ -176,9 +176,9 @@ int main(int argc, char **argv)
     return 1;
   }
 
-  func=GWEN_Funcs_Find(funcs, cmd);
+  func=GWEN_Funcs(funcs).get(cmd);
   if (func!=NULL) {
-    rv=GWEN_Funcs_Call_DB_NODE_Args(func, db, argc, argv);
+    rv=func.call(db, argc, argv);
   }
   else {
     fprintf(stderr, "ERROR: Unknown command \"%s\".\n", cmd);
