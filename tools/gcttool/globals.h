@@ -28,6 +28,9 @@
 
 #include "src/base/i18n_l.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 GWEN_CRYPT_TOKEN *getCryptToken(const char *ttype, const char *tname);
 
@@ -56,6 +59,9 @@ int checkTree(GWEN_DB_NODE *dbArgs, int argc, char **argv);
 
 int showPasswords(GWEN_DB_NODE *dbArgs, int argc, char **argv);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GCTTOOL_GLOBALS_H */
 
